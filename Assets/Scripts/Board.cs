@@ -209,8 +209,8 @@ public class Board : MonoBehaviour
                 ClearPieceAt(clickedPieceMatches);
                 ClearPieceAt(targetPieceMatches);
 
-                //HighlightMatchesAt(clickedPiece.xIndex, clickedPiece.yIndex);
-                //HighlightMatchesAt(targetPiece.xIndex, targetPiece.yIndex);
+                CollapseColumn(clickedPieceMatches);
+                CollapseColumn(targetPieceMatches);
             }            
         }        
     }
@@ -381,5 +381,64 @@ public class Board : MonoBehaviour
     {
         foreach (GamePiece piece in gamePieces)
             ClearPieceAt(piece.xIndex, piece.yIndex);
+    }
+
+    private List<GamePiece> CollapseColumn(int column, float collapseTime = 0.1f)
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>();
+
+        for(int i = 0; i < height - 1; i++)
+        {
+            if(m_allGamePieces[column, i] == null)
+            {
+                for(int j = i + 1; j < height; j++)
+                {
+                    if (m_allGamePieces[column, j] != null)
+                    {
+                        m_allGamePieces[column, j].Move(column, i, collapseTime);
+                        m_allGamePieces[column, i] = m_allGamePieces[column, j];
+                        m_allGamePieces[column, i].SetCoord(column, i);
+
+                        if(!movingPieces.Contains(m_allGamePieces[column, i]))
+                        {
+                            movingPieces.Add(m_allGamePieces[column, i]);
+                        }
+
+                        m_allGamePieces[column, j] = null;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return movingPieces;
+    }
+
+    private List<GamePiece> CollapseColumn(List<GamePiece> gamePieces)
+    {
+        List<GamePiece> movingPieces = new List<GamePiece>();
+        List<int> columnsToCollapse = GetColumns(gamePieces);
+
+        foreach(int column in columnsToCollapse)
+        {
+            movingPieces = movingPieces.Union(CollapseColumn(column)).ToList();
+        }
+
+        return movingPieces;
+    }
+
+    private List<int> GetColumns(List<GamePiece> gamePieces)
+    {
+        List<int> columns = new List<int>();
+
+        foreach(GamePiece piece in gamePieces)
+        {
+            if(!columns.Contains(piece.xIndex))
+            {
+                columns.Add(piece.xIndex);
+            }
+        }
+
+        return columns;
     }
 }
