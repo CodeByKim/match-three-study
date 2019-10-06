@@ -75,13 +75,14 @@ public class Tile : MonoBehaviour
 
     private IEnumerator BreakTileRoutine()
     {
-        breakableValue = Mathf.Clamp(breakableValue--, 0, breakableValue);
+        breakableValue -= 1;
+        breakableValue = Mathf.Clamp(breakableValue, 0, breakableValue);
         yield return new WaitForSeconds(0.25f);
 
         if (breakableSprites[breakableValue] != null)
             m_spriteRenderer.sprite = breakableSprites[breakableValue];
 
-        if (breakableValue == 0)
+        if (breakableValue <= 0)
         {
             tileType = TileType.Normal;
             m_spriteRenderer.color = normalColor;
