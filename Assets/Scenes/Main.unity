@@ -142,17 +142,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingTiles:
-  - tilePrefab: {fileID: 3973184887276891175, guid: 5265b56cf6fea4cbe9bff53c1fb85dea,
+  - tilePrefab: {fileID: 8015500263703192580, guid: a3ea9113b05de4acb942c3aa46338872,
       type: 3}
-    x: 3
+    x: 2
+    y: 2
+    z: 0
+  - tilePrefab: {fileID: 8015500263703192580, guid: a3ea9113b05de4acb942c3aa46338872,
+      type: 3}
+    x: 2
+    y: 3
+    z: 0
+  - tilePrefab: {fileID: 8015500263703192580, guid: a3ea9113b05de4acb942c3aa46338872,
+      type: 3}
+    x: 2
     y: 4
-    z: 1
-  - tilePrefab: {fileID: 3973184887276891175, guid: 5265b56cf6fea4cbe9bff53c1fb85dea,
+    z: 0
+  - tilePrefab: {fileID: 8015500263703192580, guid: a3ea9113b05de4acb942c3aa46338872,
       type: 3}
-    x: 5
+    x: 2
     y: 5
-    z: 1
-  width: 7
+    z: 0
+  - tilePrefab: {fileID: 5689830479503375903, guid: c749a0355f7e34a3d8dac35fcd56d11b,
+      type: 3}
+    x: 4
+    y: 2
+    z: 0
+  - tilePrefab: {fileID: 5689830479503375903, guid: c749a0355f7e34a3d8dac35fcd56d11b,
+      type: 3}
+    x: 4
+    y: 3
+    z: 0
+  width: 8
   height: 9
   borderSize: 2
   tileNormalPrefab: {fileID: 2491752974845075901, guid: bfa963d993e00428b8c45ded3556e22f,
