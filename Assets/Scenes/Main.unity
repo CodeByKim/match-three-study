@@ -141,10 +141,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f843ea3ae73a4f10ba00bcfd5b245ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingTiles:
+  - tilePrefab: {fileID: 3973184887276891175, guid: 5265b56cf6fea4cbe9bff53c1fb85dea,
+      type: 3}
+    x: 3
+    y: 4
+    z: 1
+  - tilePrefab: {fileID: 3973184887276891175, guid: 5265b56cf6fea4cbe9bff53c1fb85dea,
+      type: 3}
+    x: 5
+    y: 5
+    z: 1
   width: 7
   height: 9
   borderSize: 2
-  tilePrefab: {fileID: 2491752974845075901, guid: bfa963d993e00428b8c45ded3556e22f,
+  tileNormalPrefab: {fileID: 2491752974845075901, guid: bfa963d993e00428b8c45ded3556e22f,
+    type: 3}
+  tileObstaclePrefab: {fileID: 3973184887276891175, guid: 5265b56cf6fea4cbe9bff53c1fb85dea,
     type: 3}
   gamePiecePrefabs:
   - {fileID: 7393565198075838194, guid: 6e0fcd2d0fe024027a0d798cb05718f2, type: 3}
