@@ -14,7 +14,7 @@ public class Board : MonoBehaviour
         public int z;
     }
 
-    public StartingTile[] startingTiles;
+    public StartingTile[] startingTiles;    
 
     public int width;
     public int height;
@@ -31,6 +31,7 @@ public class Board : MonoBehaviour
 
     private Tile m_clickedTile;
     private Tile m_targetTile;
+    private ParticleManager m_particleManager;
 
     private bool m_playerInputEnabled = true;
 
@@ -41,7 +42,8 @@ public class Board : MonoBehaviour
 
         SetupTiles();
         SetupCamera();
-        FillBoard(10, 0.5f);        
+        FillBoard(10, 0.5f);
+        m_particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
     private void SetupTiles()

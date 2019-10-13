@@ -9522,6 +9522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4818881848499334355}
+  - component: {fileID: 4838296051850889209}
   m_Layer: 0
   m_Name: BreakFX
   m_TagString: Untagged
@@ -9544,3 +9545,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4838296051850889209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4818881848499334352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb86ad588a5e4901ad23df049a5ae94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allParticles: []
+  lifeTime: 1
