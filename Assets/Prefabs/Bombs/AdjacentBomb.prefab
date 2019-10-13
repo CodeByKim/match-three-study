@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0fd7fa6977802463a987a05c179dcf71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d795179e396b642288ec2f734e6be399, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1606144486886034966}
   - component: {fileID: 6680953762106812372}
   m_Layer: 0
-  m_Name: RowBomb
+  m_Name: AdjacentBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   interpolation: 4
   xIndex: 0
   yIndex: 0
-  bombType: 2
+  bombType: 3
 --- !u!1001 &3529180941633359174
 PrefabInstance:
   m_ObjectHideFlags: 0
