@@ -466,10 +466,12 @@ public class Board : MonoBehaviour
         foreach (GamePiece piece in gamePieces)
         {
             if(piece != null)
+            {
                 ClearPieceAt(piece.xIndex, piece.yIndex);
 
-            if (m_particleManager != null)
-                m_particleManager.ClearPieceFXAt(piece.xIndex, piece.yIndex);
+                if (m_particleManager != null)
+                    m_particleManager.ClearPieceFXAt(piece.xIndex, piece.yIndex);
+            }                
         }
             
     }
@@ -481,7 +483,7 @@ public class Board : MonoBehaviour
         if (tileToBreak != null && tileToBreak.tileType == TileType.Breakable)
         {
             if (m_particleManager != null)
-                m_particleManager.BreakTileFXAt(tileToBreak.breakableValue, x, y);
+                m_particleManager.BreakTileFXAt(tileToBreak.breakableValue, x, y, 0);
 
             tileToBreak.BreakTile();
         }        
