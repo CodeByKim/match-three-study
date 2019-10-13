@@ -6,19 +6,22 @@ using System.Linq;
 public class Board : MonoBehaviour
 {
     [System.Serializable]
-    public class StartingTile
+    public class StartingObject
     {
-        public GameObject tilePrefab;
+        public GameObject prefab;
         public int x;
         public int y;
         public int z;
     }
 
-    public StartingTile[] startingTiles;    
+    public StartingObject[] startingTiles;
+    public StartingObject[] startingGamePieces;
 
     public int width;
     public int height;
     public int borderSize;
+    public int fillYOffset = 10;
+    public float fillMoveTime = 0.5f;
 
     public GameObject tileNormalPrefab;
     public GameObject tileObstaclePrefab;
@@ -41,18 +44,20 @@ public class Board : MonoBehaviour
         m_allGamePieces = new GamePiece[width, height];
 
         SetupTiles();
+        SetupGamePieces();
+
         SetupCamera();
-        FillBoard(10, 0.5f);
+        FillBoard(fillYOffset, fillMoveTime);
         m_particleManager = GameObject.FindWithTag("ParticleManager").GetComponent<ParticleManager>();
     }
 
     private void SetupTiles()
     {
-        foreach(StartingTile sTile in startingTiles)
+        foreach(StartingObject sTile in startingTiles)
         {
             if(sTile != null)
             {
-                MakeTile(sTile.tilePrefab, sTile.x, sTile.y, sTile.z);                
+                MakeTile(sTile.prefab, sTile.x, sTile.y, sTile.z);                
             }
         }
 
@@ -68,7 +73,7 @@ public class Board : MonoBehaviour
 
     private void MakeTile(GameObject prefab, int x, int y, int z = 0)
     {
-        if(prefab != null)
+        if(prefab != null && IsWithinBounds(x, y))
         {
             GameObject tile = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity) as GameObject;
             tile.name = "Tile (" + x + "," + y + ")";
@@ -77,6 +82,19 @@ public class Board : MonoBehaviour
             m_allTiles[x, y] = tile.GetComponent<Tile>();
             m_allTiles[x, y].Init(x, y, this);
         }        
+    }
+
+    private void SetupGamePieces()
+    {
+        foreach(StartingObject sPiece in startingGamePieces)
+        {
+            if(sPiece != null)
+            {
+                GameObject piece = Instantiate(sPiece.prefab, new Vector3(sPiece.x, sPiece.y, 0), Quaternion.identity)
+                    as GameObject;
+                MakeGamePiece(piece, sPiece.x, sPiece.y, fillYOffset, fillMoveTime);
+            }
+        }
     }
 
     private void SetupCamera()
@@ -126,25 +144,32 @@ public class Board : MonoBehaviour
         return (x >= 0 && x < width && y >= 0 && y < height);
     }
 
-    private GamePiece FillRandomAt(int x, int y, int falseYOffset = 0, float moveTime = 0.1f)
+    private void MakeGamePiece(GameObject prefab, int x, int y, int falseYOffset = 0, float moveTime = 0.1f)
     {
-        GameObject randomPiece = Instantiate(GetRandomGamePiece(), Vector3.zero, Quaternion.identity) as GameObject;
-
-        if (randomPiece != null)
+        if (prefab != null && IsWithinBounds(x, y))
         {
-            randomPiece.GetComponent<GamePiece>().Init(this);
-            PlaceGamePiece(randomPiece.GetComponent<GamePiece>(), x, y);
+            prefab.GetComponent<GamePiece>().Init(this);
+            PlaceGamePiece(prefab.GetComponent<GamePiece>(), x, y);
 
-            if(falseYOffset != 0)
+            if (falseYOffset != 0)
             {
-                randomPiece.transform.position = new Vector3(x, y + falseYOffset, 0);
-                randomPiece.GetComponent<GamePiece>().Move(x, y, moveTime);
+                prefab.transform.position = new Vector3(x, y + falseYOffset, 0);
+                prefab.GetComponent<GamePiece>().Move(x, y, moveTime);
             }
 
-            randomPiece.transform.SetParent(transform);
+            prefab.transform.SetParent(transform);
+        }
+    }
+
+    private GamePiece FillRandomAt(int x, int y, int falseYOffset = 0, float moveTime = 0.1f)
+    {
+        if(IsWithinBounds(x, y))
+        {
+            GameObject randomPiece = Instantiate(GetRandomGamePiece(), Vector3.zero, Quaternion.identity) as GameObject;
+            MakeGamePiece(randomPiece, x, y, falseYOffset, moveTime);
 
             return randomPiece.GetComponent<GamePiece>();
-        }
+        }        
 
         return null;
     }
@@ -625,7 +650,7 @@ public class Board : MonoBehaviour
 
     private IEnumerator RefillRoutine()
     {
-        FillBoard(10, 0.5f);
+        FillBoard(fillYOffset, fillMoveTime);
         yield return null;
     }
 
